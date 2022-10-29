@@ -1,0 +1,45 @@
+﻿@using LearnRocky.Models.ViewModels
+@model IEnumerable<AllCart>
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="text-black text-center">
+    <h2> In your cart @Model.Count() products: </h2>
+
+    <div class="row-cols-sm-6">
+        <table class="table table-striped border-1">
+            <thead>
+                <th> # </th>
+                <th> Product Name:  </th>
+                <th> Quantity:  </th>
+                <th> Price per one: </th>
+                <th> Price for all: </th>
+            </thead>
+            <tbody>
+                @{
+                    int cc = 0;
+                }
+                @{
+                    double total = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    cc++;
+                    total += item.price;
+                    <tr>
+                        <td>@cc</td>
+                        <td>@item.prod.Name</td>
+                        <td>@item.quantity</td>
+                        <td>@item.prod.Price</td>
+                        <td>@item.price</td>
+                        <td> <a class="btn btn-danger" asp-controller="Home" asp-action="DeleteCartItem" asp-route-id="@item.prod.id"> Delete </a> </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-black text-right">
+            Total: @total.ToString("c")
+        </div>
+    </div>
+</div>

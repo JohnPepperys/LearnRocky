@@ -1,0 +1,105 @@
+﻿@model LearnRocky.Models.ViewModels.ProductVM
+@{
+    ViewData["Title"] = "Create Insert";
+    var title = "Create new Product";
+}
+
+<form method="post" asp-controller="Product" asp-action="CreateProduct" enctype="multipart/form-data">
+    <div class="border p-3">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            @if (Model.product != null)
+            {
+                title = $"Edit product {Model.product.Name}";
+                <input hidden asp-for="product.id" class="form-control"></input>
+                <input hidden asp-for="temp_image_url"></input>
+            }
+            <h2 class="text-info p1-3">   @title </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-4 pt-4">
+                @if (Model.product != null)
+                {
+                    <img src="\@WebConst.imagePath\@Model.product.imageUrl" width="100%" style="border-radius:5px border:1px solid #bbb"></img>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4">
+                        <label asp-for="product.Name">enter Product name: </label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="product.Name" class="form-control"/>
+                        <span class="text-danger" asp-validation-for="product.Name"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4">
+                        <label asp-for="product.Price">enter Product price</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="product.Price" class="form-control"/>
+                        <span class="text-danger" asp-validation-for="product.Price"></span>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4">
+                        <label asp-for="product.Description"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="product.Description" class="form-control"/>
+                        <span class="text-danger" asp-validation-for="product.Description"></span>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4">
+                        <label asp-for="product.imageUrl">load image for Product: </label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="product.imageUrl" type="file" name="files" id="uploadBox" multiple class="form-control"/>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4">
+                        <label asp-for="product.CategoryId">choose category of Product: </label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="product.CategoryId" asp-items="@Model.selectCategory" class="form-control">
+                            <option disabled selected> --Select Category -- </option>    
+                        </select>
+                        <span asp-validation-for="product.CategoryId" class="text-danger"></span>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4 offset-4 row">
+                        <div class="col">
+                            @if (Model.product == null) {
+                                <input type="submit" class="btn btn-info w-100" onclick="return validateInput()" value="Create"/>
+                            } else {
+                                <input type="submit" class="btn btn-info w-100" value="Update"/>
+                            }
+
+                        </div>
+                        <div class="col">
+                            <a asp-action="IndexProduct" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ <partial name="_ValidationScriptsPartial" />}
+}

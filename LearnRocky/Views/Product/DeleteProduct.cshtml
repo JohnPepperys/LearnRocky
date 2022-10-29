@@ -1,0 +1,63 @@
+﻿@model LearnRocky.Models.Product
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form method="post" asp-controller="Product" asp-action="DeleteProduct">
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info p1-3">  Delete product: </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-4 pt-4">
+                @if (Model != null)
+                {
+                    <img src="\@WebConst.imagePath\@Model.imageUrl" width="100%" style="border-radius:5px border:1px solid #bbb"></img>
+                    <input hidden readonly asp-for="imageUrl" class="form-control"/>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row g-2 my-2">
+                    <div class="col-8">
+                        <input asp-for="Name" readonly class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-8">
+                        <input asp-for="Price" readonly class="form-control"/>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-8">
+                        <input asp-for="Description" readonly class="form-control"/>
+                    </div>                    
+                </div>
+
+                <div class="form-group row g-2 my-2">
+                    <div class="col-8">
+                        <input asp-for="categories.Name" readonly class="form-control"/>
+                    </div>                    
+                </div>
+                
+                <div class="form-group row g-2 my-2">
+                    <div class="col-4 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-danger btn-info w-100" value="Delete"/>
+                        </div>
+                        <div class="col">
+                            <a asp-action="IndexProduct" class="btn btn-success w-100">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+

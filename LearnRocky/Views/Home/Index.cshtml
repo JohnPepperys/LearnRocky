@@ -1,0 +1,42 @@
+﻿@model LearnRocky.Models.HomeVM
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to LearnRocky!</h1>
+</div>
+
+<div class="container">
+    <div class="text-center text-dark">
+        <button class="btn btn-outline-secondary filter-button" data-filter="All"> All </button>
+        @foreach (var obj in Model.categories)
+        {
+            <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ', '_')"> @obj.Name </button>
+        }
+    </div>
+    <br/>
+
+    <div class="row">
+        @foreach (var item in Model.prod)
+        {
+            <partial name="_IndividualProductCard" model="item" />
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() { 
+            $(".filter-button").click(function() {
+                var value = $(this).attr('data-filter');
+                if (value == "All") {
+                    $(".filter").show('1000');
+                } else {
+                    $(".filter").not('.' + value).hide('3000');
+                    $(".filter").filter('.' + value).show('3000')
+                }
+            });
+        });
+    </script>
+}
